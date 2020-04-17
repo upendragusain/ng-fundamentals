@@ -3,7 +3,8 @@
 <div class="col-md-4">
   <form #loginForm="ngForm"
         (ngSubmit)="login(loginForm.value)"
-        autocomplete="off">
+        autocomplete="off"
+        novalidate>
     <div class="form-group">
       <label for="userName">User Name:</label>
 
@@ -16,19 +17,25 @@
          (ngSubmit)="login(loginForm)" => (ngSubmit) can prevents submission
         of form to server, also notice that it uses #loginForm
       -->
-
+      <em *ngIf="loginForm.controls.userName?.invalid &&
+          (loginForm.controls.userName?.touched || mouseOverLogin)">Required</em>
       <input (ngModel)="username" id="userName" name="userName"
              type="text" class="form-control"
-             placeholder="User Name..." />
+             placeholder="User Name..."
+             required/>
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
+      <em *ngIf="loginForm.controls.password?.invalid &&
+          (loginForm.controls.password?.touched || mouseOverLogin)">Required</em>
       <input (ngModel)="password" id="password" name="password"
              type="password" class="form-control"
-             placeholder="Password..." />
+             placeholder="Password..."
+             required />
     </div>
-
-    <button type="submit" class="btn btn-primary">Login</button>
+    <span (mouseenter)="mouseOverLogin=true" (mouseleave)="mouseOverLogin=false">
+      <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
+    </span>
     <button type="button" (click)="cancel()" class="btn btn-default">Cancel</button>
   </form>
 </div>
