@@ -19,3 +19,7 @@ import { ProfileComponent } from './profile.component'
 export class UserModule {
 
 }
+
+//this module will be lazy loaded
+// meaning all its dependecies laoded only when its acesses
+// and not when the main index/app module loads
